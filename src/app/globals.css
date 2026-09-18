@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink-50: #f6f7f9;
+  --color-ink-100: #eceef2;
+  --color-ink-200: #d5dae2;
+  --color-ink-300: #b0b9c7;
+  --color-ink-400: #7c8798;
+  --color-ink-500: #5a6475;
+  --color-ink-600: #454e5d;
+  --color-ink-700: #363d49;
+  --color-ink-800: #232933;
+  --color-ink-900: #151a21;
+
+  --color-brand-50: #fff4ed;
+  --color-brand-100: #ffe5d4;
+  --color-brand-200: #ffc7a8;
+  --color-brand-500: #f2661a;
+  --color-brand-600: #dd5310;
+  --color-brand-700: #b73f0f;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-ink-50);
+  color: var(--color-ink-900);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Große Zielflächen: die App wird oft mit Arbeitshandschuhen am Handy bedient. */
+button,
+a,
+input,
+select,
+textarea {
+  touch-action: manipulation;
+}
+
+input,
+select,
+textarea {
+  font-size: 16px; /* verhindert Auto-Zoom auf iOS */
+}
+
+@media (min-width: 768px) {
+  input,
+  select,
+  textarea {
+    font-size: 15px;
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+  aside,
+  header,
+  nav {
+    display: none !important;
+  }
+  main > div {
+    max-width: none;
+    padding: 0;
+  }
+}
