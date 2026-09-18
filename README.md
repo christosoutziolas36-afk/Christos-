@@ -20,8 +20,18 @@ nicht mehr vergessen. Kein ERP, keine Buchhaltung, kein Lager.
 ## Schnellstart
 
 ```bash
+git clone -b claude/angebotsmeister-saas-handoff-vft1ab \
+  https://github.com/christosoutziolas36-afk/Christos-.git angebotsmeister
+cd angebotsmeister
 npm install
 npm run dev        # http://localhost:3000
+```
+
+Einen Anruf vorführen (App muss laufen, zweites Terminal):
+
+```bash
+npm run demo           # vollständiges Gespräch
+npm run demo:abbruch   # Anrufer legt mittendrin auf
 ```
 
 Beim ersten Start legt die App den Demo-Betrieb „Malerbetrieb Farbwerk – Demo“

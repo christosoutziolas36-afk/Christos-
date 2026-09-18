@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "demo": "node e2e/anruf-simulieren.mjs",
+    "demo:abbruch": "node e2e/anruf-simulieren.mjs --abbruch",
+    "test:e2e": "node e2e/kernprozess.mjs && node e2e/telefonassistent.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",
