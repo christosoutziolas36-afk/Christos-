@@ -7,6 +7,15 @@ export const metadata: Metadata = {
   title: "Angebotsmeister",
   description:
     "Kundenanfragen festhalten, schneller Angebote vorbereiten und offene Angebote nicht mehr vergessen.",
+  icons: { icon: "/icon.svg" },
+  openGraph: {
+    title: "Angebotsmeister",
+    description:
+      "Für kleine Malerbetriebe: Anfrage, Angebot, Follow-up – ohne dass etwas liegen bleibt.",
+    images: ["/og.svg"],
+    locale: "de_DE",
+    type: "website",
+  },
 };
 
 export const viewport: Viewport = {

@@ -147,6 +147,24 @@ const run = async () => {
   );
   await page.keyboard.press("Escape");
 
+  // Peter legt auf Zuruf ein Angebot an – erst nach Bestätigung durch den Nutzer.
+  await page.getByPlaceholder("Frage an Peter…").fill(
+    "Mach aus der Anfrage von Schneider einen Angebotsentwurf",
+  );
+  await page.getByRole("button", { name: "Fragen" }).click();
+  await page.waitForTimeout(500);
+  check(
+    "Peter fragt vor dem Anlegen eines Angebots nach",
+    (await page.content()).includes("Soll ich daraus ein Angebot anlegen?"),
+  );
+  await page.getByRole("button", { name: "Angebot anlegen" }).click();
+  await page.waitForURL(/\/angebote\/\w+/);
+  await ready(page);
+  check(
+    "Peters Angebotsentwurf landet als echtes Angebot im System",
+    (await page.content()).includes("Untergrund vorbereiten"),
+  );
+
   // --- 7. Entscheidung -----------------------------------------------------
   await page.goto(quoteUrl, { waitUntil: "networkidle" });
   await ready(page);
