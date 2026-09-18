@@ -31,6 +31,16 @@ für eine Demo beim Kunden.
    Am Stichtag steht das Angebot wieder auf *Heute*.
 5. **Entscheidung** – angenommen oder abgelehnt, mit Rückfrage vor jedem Schritt.
 
+## Telefonassistent
+
+Ruft jemand an und im Betrieb geht niemand ran, nimmt der Assistent das
+Gespräch an, fragt Name, Anliegen, Adresse und Zeitraum ab und legt die
+Anfrage ins Dashboard. Jede Antwort wird sofort gespeichert – auch ein
+abgebrochener Anruf landet vollständig unter *Anrufe*, mit dem Hinweis, was
+noch fehlt. Von dort wird mit einem Klick eine Anfrage daraus.
+
+Einrichtung und Test ohne Telefon: siehe [TELEFON.md](TELEFON.md).
+
 ## Peter
 
 Der eingebaute Assistent arbeitet ausschließlich mit den gespeicherten Daten
@@ -62,9 +72,11 @@ danach `.env.local` aus `.env.example` befüllen.
 ## Tests
 
 ```bash
-npm test                  # Unit-Tests: Werktage, Summen, Peter-Logik
+npm test                     # Unit-Tests: Werktage, Summen, Peter, Telefonassistent
 npm run build && npm start
-node e2e/kernprozess.mjs  # End-to-End-Test des kompletten V1-Prozesses
+node e2e/kernprozess.mjs     # End-to-End: Anfrage -> Angebot -> Follow-up
+node e2e/telefonassistent.mjs # End-to-End: Anruf -> Dashboard -> Anfrage
+node e2e/anruf-simulieren.mjs # Anruf zum Vorführen simulieren
 ```
 
 ## Stack

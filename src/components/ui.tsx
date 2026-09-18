@@ -34,14 +34,19 @@ export function Card({
   children,
   className = "",
   as = "div",
+  testId,
 }: {
   children: ReactNode;
   className?: string;
   as?: "div" | "section";
+  testId?: string;
 }) {
   const Tag = as;
   return (
-    <Tag className={`rounded-xl border border-ink-200 bg-white shadow-[0_1px_2px_rgba(21,26,33,0.04)] ${className}`}>
+    <Tag
+      data-testid={testId}
+      className={`rounded-xl border border-ink-200 bg-white shadow-[0_1px_2px_rgba(21,26,33,0.04)] ${className}`}
+    >
       {children}
     </Tag>
   );

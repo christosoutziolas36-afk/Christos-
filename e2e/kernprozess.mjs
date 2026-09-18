@@ -205,8 +205,20 @@ const run = async () => {
   await mobile.goto(`${BASE}/anfragen`, { waitUntil: "networkidle" });
   await ready(mobile);
   check("Leerer Zustand bei Anfragen wird erklärt", (await mobile.content()).includes("Noch keine Anfragen"));
+  // Offene Anrufe liegen auf dem Server, nicht im Browser-Speicher – für den
+  // Leerzustand müssen auch sie abgehakt sein.
+  const { calls } = await fetch(`${BASE}/api/voice/calls`, { cache: "no-store" }).then((r) => r.json());
+  for (const call of calls.filter((c) => c.status === "aufgenommen" || c.status === "abgebrochen")) {
+    await fetch(`${BASE}/api/voice/calls`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ id: call.id, status: "erledigt" }),
+    });
+  }
+
   await mobile.goto(`${BASE}/heute`, { waitUntil: "networkidle" });
   await ready(mobile);
+  await mobile.waitForTimeout(600);
   check("Leerer Zustand auf Heute wird erklärt", (await mobile.content()).includes("Alles erledigt"));
 
   // --- 11. Fehlerzustand: unbekannte ID ------------------------------------

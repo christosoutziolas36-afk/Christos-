@@ -14,6 +14,8 @@ import {
   StatTile,
 } from "@/components/ui";
 import { FollowUpCard } from "@/components/followup-card";
+import { CallCard } from "@/components/call-card";
+import { useVoiceCalls } from "@/lib/voice/use-calls";
 import { useStore } from "@/lib/store/store";
 import {
   callbacks,
@@ -30,6 +32,7 @@ import { formatEuroShort, quoteNet } from "@/lib/money";
 
 export default function HeutePage() {
   const { data, ready, toggleTask } = useStore();
+  const { offene: offeneAnrufe, statusSetzen } = useVoiceCalls();
 
   const view = useMemo(() => {
     const now = new Date();
@@ -50,6 +53,7 @@ export default function HeutePage() {
   }
 
   const nothingToDo =
+    offeneAnrufe.length === 0 &&
     view.followUps.length === 0 &&
     view.fresh.length === 0 &&
     view.ready.length === 0 &&
@@ -76,10 +80,10 @@ export default function HeutePage() {
       />
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+        <StatTile label="Anrufe aufgenommen" value={offeneAnrufe.length} href="/anrufe" tone="warn" />
         <StatTile label="Neue Anfragen" value={view.counts.newInquiries} href="/anfragen" tone="warn" />
         <StatTile label="Angebote in Arbeit" value={view.counts.drafts} href="/angebote" tone="warn" />
         <StatTile label="Follow-ups fällig" value={view.counts.followUps} href="/angebote" tone="warn" />
-        <StatTile label="Rückrufe" value={view.counts.callbacks} href="/heute" tone="warn" />
       </div>
 
       {view.insights.length > 0 ? (
@@ -117,7 +121,9 @@ export default function HeutePage() {
       ) : null}
 
       <section>
-        <SectionTitle hint={`${view.followUps.length + view.fresh.length + view.drafts.length + view.tasks.length} Punkte`}>
+        <SectionTitle
+          hint={`${offeneAnrufe.length + view.followUps.length + view.fresh.length + view.drafts.length + view.tasks.length} Punkte`}
+        >
           Heute zu erledigen
         </SectionTitle>
 
@@ -130,6 +136,17 @@ export default function HeutePage() {
         ) : null}
 
         <div className="space-y-6">
+          {offeneAnrufe.length > 0 ? (
+            <div className="space-y-3">
+              <h3 className="text-sm font-bold text-ink-700">
+                Anrufe, die der Assistent angenommen hat
+              </h3>
+              {offeneAnrufe.map((call) => (
+                <CallCard key={call.id} call={call} onStatus={statusSetzen} />
+              ))}
+            </div>
+          ) : null}
+
           {view.followUps.length > 0 ? (
             <div className="space-y-3">
               <h3 className="text-sm font-bold text-ink-700">Follow-up fällig</h3>

@@ -8,6 +8,7 @@ import { todayCounts } from "@/lib/selectors";
 
 const NAV = [
   { href: "/heute", label: "Heute", icon: "◎" },
+  { href: "/anrufe", label: "Anrufe", icon: "☎" },
   { href: "/anfragen", label: "Anfragen", icon: "✉" },
   { href: "/angebote", label: "Angebote", icon: "€" },
   { href: "/kunden", label: "Kunden", icon: "☺" },
@@ -16,7 +17,9 @@ const NAV = [
 ];
 
 /** Mobil bewusst reduziert – die vier Wege, die im Alltag zählen. */
-const MOBILE_NAV = NAV.filter((n) => n.href !== "/einstellungen" && n.href !== "/kunden");
+const MOBILE_NAV = NAV.filter(
+  (n) => !["/einstellungen", "/kunden", "/anrufe"].includes(n.href),
+);
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
