@@ -73,9 +73,14 @@ export default function HeutePage() {
           year: "numeric",
         })}
         action={
-          <Button href="/anfragen/neu" size="lg">
-            + Neue Anfrage
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button href="/angebote/neu" variant="ghost" size="lg">
+              + Angebot
+            </Button>
+            <Button href="/anfragen/neu" size="lg">
+              + Neue Anfrage
+            </Button>
+          </div>
         }
       />
 

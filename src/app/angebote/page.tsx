@@ -48,9 +48,14 @@ export default function AngebotePage() {
             : "Alle Angebote im Überblick."
         }
         action={
-          <Button href="/anfragen" variant="ghost" size="lg">
-            Aus Anfrage erstellen
-          </Button>
+          <div className="flex gap-2">
+            <Button href="/anfragen" variant="ghost" size="lg">
+              Aus Anfrage
+            </Button>
+            <Button href="/angebote/neu" size="lg">
+              + Neues Angebot
+            </Button>
+          </div>
         }
       />
 
@@ -75,8 +80,8 @@ export default function AngebotePage() {
       {list.length === 0 ? (
         <EmptyState
           title={data.quotes.length === 0 ? "Noch keine Angebote" : "Keine Treffer"}
-          text="Angebote entstehen aus einer Anfrage – so bleibt alles verknüpft."
-          action={<Button href="/anfragen">Zu den Anfragen</Button>}
+          text="Lege ein Angebot direkt an oder starte aus einer erfassten Anfrage – dann bleibt beides verknüpft."
+          action={<Button href="/angebote/neu">+ Neues Angebot</Button>}
         />
       ) : (
         <Card className="divide-y divide-ink-100">

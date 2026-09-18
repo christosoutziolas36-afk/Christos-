@@ -14,6 +14,7 @@ import {
   inputClass,
 } from "@/components/ui";
 import { MessageDialog, type MessageDraft } from "@/components/message-dialog";
+import { PositionSchnelleingabe } from "@/components/position-schnelleingabe";
 import { useStore } from "@/lib/store/store";
 import { customerOf, quoteAgeInDays } from "@/lib/selectors";
 import { formatEuro, itemTotal, quoteGross, quoteNet, quoteTax } from "@/lib/money";
@@ -64,18 +65,6 @@ export default function AngebotDetailPage() {
   const gross = quoteGross(quote, data.company.taxRate);
   const editable = quote.status === "entwurf" || quote.status === "bereit";
   const activeServices = data.services.filter((s) => s.active);
-
-  function addFromCatalog(serviceId: string) {
-    const service = data.services.find((s) => s.id === serviceId);
-    if (!service || !quote) return;
-    addQuoteItem(quote.id, {
-      serviceId: service.id,
-      name: service.name,
-      quantity: service.unit === "pauschal" ? 1 : 0,
-      unit: service.unit,
-      unitPrice: service.defaultPrice,
-    });
-  }
 
   function sendQuoteMail() {
     if (!quote || !customer) return;
@@ -132,13 +121,13 @@ export default function AngebotDetailPage() {
               </p>
             ) : (
               <div className="-mx-4 overflow-x-auto px-4">
-                <table className="w-full min-w-[520px] text-sm">
+                <table className="w-full min-w-[640px] table-fixed text-sm">
                   <thead>
                     <tr className="border-b border-ink-200 text-left text-xs uppercase tracking-wide text-ink-400">
                       <th className="pb-2">Leistung</th>
-                      <th className="pb-2 w-24 text-right">Menge</th>
-                      <th className="pb-2 w-28">Einheit</th>
-                      <th className="pb-2 w-28 text-right">Einzelpreis</th>
+                      <th className="pb-2 w-20 text-right">Menge</th>
+                      <th className="pb-2 w-24 pl-3">Einheit</th>
+                      <th className="pb-2 w-24 text-right">Einzelpreis</th>
                       <th className="pb-2 w-28 text-right">Gesamt</th>
                       <th className="pb-2 w-8" />
                     </tr>
@@ -200,7 +189,7 @@ export default function AngebotDetailPage() {
                             className="w-full rounded-md border border-transparent px-2 py-1.5 text-right tabular-nums hover:border-ink-200 focus:border-brand-500 focus:outline-none"
                           />
                         </td>
-                        <td className="py-2 pr-2 text-right font-semibold tabular-nums text-ink-900">
+                        <td className="whitespace-nowrap py-2 pr-2 text-right font-semibold tabular-nums text-ink-900">
                           {formatEuro(itemTotal(item))}
                         </td>
                         <td className="py-2 text-right">
@@ -228,31 +217,30 @@ export default function AngebotDetailPage() {
             ) : null}
 
             {editable ? (
-              <div className="mt-4 flex flex-col gap-2 border-t border-ink-100 pt-4 md:flex-row">
-                <select
-                  value=""
-                  onChange={(e) => {
-                    if (e.target.value) addFromCatalog(e.target.value);
-                    e.target.value = "";
-                  }}
-                  className={inputClass}
-                >
-                  <option value="">+ Leistung aus Katalog hinzufügen…</option>
-                  {activeServices.map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {s.name} · {formatEuro(s.defaultPrice)} / {s.unit}
-                    </option>
-                  ))}
-                </select>
-                <Button
-                  variant="ghost"
-                  onClick={() =>
-                    addQuoteItem(quote.id, { name: "", quantity: 1, unit: "pauschal", unitPrice: 0 })
-                  }
-                  className="md:w-64"
-                >
-                  Freie Position
-                </Button>
+              <div className="mt-4 space-y-2 border-t border-ink-100 pt-4">
+                <PositionSchnelleingabe
+                  services={activeServices}
+                  onAdd={(item) => addQuoteItem(quote.id, item)}
+                />
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-xs text-ink-400">
+                    Tipp: „wände 95“ und Enter. Mehrere Positionen nacheinander ohne Maus.
+                  </p>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() =>
+                      addQuoteItem(quote.id, {
+                        name: "",
+                        quantity: 1,
+                        unit: "pauschal",
+                        unitPrice: 0,
+                      })
+                    }
+                  >
+                    Freie Position
+                  </Button>
+                </div>
               </div>
             ) : null}
 

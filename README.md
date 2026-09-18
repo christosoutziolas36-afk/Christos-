@@ -42,8 +42,10 @@ für eine Demo beim Kunden.
 
 1. **Anfrage erfassen** – auch als Telefonnotiz; Peter sortiert Name, Nummer,
    Adresse und Zeitraum in die Felder.
-2. **Angebot erstellen** – Peter schlägt Positionen aus dem hinterlegten
-   Leistungskatalog vor und übernimmt Flächen aus dem Anfragetext.
+2. **Angebot erstellen** – aus der Anfrage (Peter schlägt Positionen aus dem
+   Leistungskatalog vor und übernimmt Flächen aus dem Anfragetext) oder direkt
+   über *+ Neues Angebot*. Positionen werden zeilenweise getippt: „wände 95"
+   plus Enter genügt, der Rest kommt aus dem Katalog.
 3. **Versenden** – als PDF drucken oder per Gmail/E-Mail/WhatsApp verschicken.
 4. **Follow-up** – beim Markieren als „gesendet“ entsteht automatisch ein
    Follow-up-Termin (Standard: 3 Werktage, Feiertage in NRW berücksichtigt).
@@ -96,6 +98,7 @@ npm run build && npm start
 node e2e/kernprozess.mjs     # End-to-End: Anfrage -> Angebot -> Follow-up
 node e2e/telefonassistent.mjs # End-to-End: Anruf -> Dashboard -> Anfrage
 node e2e/anruf-simulieren.mjs # Anruf zum Vorführen simulieren
+node e2e/angebot-tempo.mjs   # misst den Aufwand für ein komplettes Angebot
 ```
 
 ## Stack
