@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button, Card, Field, PageHeader, SectionTitle, inputClass } from "@/components/ui";
-import { VoiceSetup } from "@/components/voice-setup";
+import { Systemcheck } from "@/components/systemcheck";
 import { useStore } from "@/lib/store/store";
 import { formatEuro } from "@/lib/money";
 import { UNITS, type Unit } from "@/lib/types";
@@ -258,7 +258,7 @@ export default function EinstellungenPage() {
         </p>
       </Card>
 
-      <VoiceSetup />
+      <Systemcheck />
 
       <Card className="space-y-3 p-4 md:p-5">
         <SectionTitle>Daten</SectionTitle>

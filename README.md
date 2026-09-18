@@ -8,6 +8,15 @@ Ein Prozess, den sie wirklich jeden Tag brauchen:
 Kundenanfragen festhalten, schneller Angebote vorbereiten und offene Angebote
 nicht mehr vergessen. Kein ERP, keine Buchhaltung, kein Lager.
 
+## Loslegen
+
+- **[START.md](START.md)** – die Schritte, die nur ein Mensch machen kann
+  (Datenbank, Deployment, Telefonnummer). Rund 90 Minuten.
+- **[AKQUISE.md](AKQUISE.md)** – Telefonleitfaden, Nachrichtvorlagen,
+  Demo-Ablauf, Pilotvereinbarung.
+- **[PILOT.md](PILOT.md)** – Ablauf des vierwöchigen Tests.
+- **[TELEFON.md](TELEFON.md)** – Telefonassistent einrichten und testen.
+
 ## Schnellstart
 
 ```bash
